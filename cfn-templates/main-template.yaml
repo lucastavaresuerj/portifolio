@@ -47,6 +47,9 @@ Resources:
         - "https://s3.amazonaws.com/${Bucket}/cfn-templates/front/front-storage-template.yaml"
         - Bucket:
             Fn::ImportValue: !Sub "${S3SavesStackName}-BucketName"
+      Parameters:
+        AcmCertificateArn: /portifolio/domain/AcmCertificateArn
+        Aliases: www.portifolio.lucas-tavares.com
 
   # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/quickref-cloudformation.html
   CodeBuildPortifolio:

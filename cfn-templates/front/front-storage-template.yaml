@@ -1,6 +1,12 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: Using code build to deploy an angular project into S3
 
+Parameters:
+  AcmCertificateArn:
+    Type: AWS::SSM::Parameter::Value<String>
+  Aliases:
+    Type: CommaDelimitedList
+
 Resources:
   S3BucketWebSite:
     Type: "AWS::S3::Bucket"
@@ -40,6 +46,7 @@ Resources:
     Type: "AWS::CloudFront::Distribution"
     Properties:
       DistributionConfig:
+        Aliases: !Ref Aliases
         CustomErrorResponses:
           - ErrorCode: 404 # not found
             ResponseCode: 200
@@ -72,6 +79,10 @@ Resources:
             S3OriginConfig:
               OriginAccessIdentity: !Sub "origin-access-identity/cloudfront/${CloudFrontOriginAccessIdentity}"
         PriceClass: "PriceClass_All"
+        ViewerCertificate:
+          AcmCertificateArn: !Ref AcmCertificateArn
+          MinimumProtocolVersion: TLSv1.2_2021
+          SslSupportMethod: sni-only
 
 Outputs:
   WebsiteURL:
