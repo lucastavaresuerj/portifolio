@@ -1,15 +1,7 @@
-Description: Root Stack for online gallery project
+Description: Root Stack for portifolio project
 AWSTemplateFormatVersion: 2010-09-09
 
 Parameters:
-  AuthRoleName:
-    Type: String
-    Default: AuthRoleName-gallery
-    Description: Name of the common deployment bucket provided by the parent stack
-  UnauthRoleName:
-    Type: String
-    Default: UnAuthRoleName-gallery
-    Description: Name of the common deployment bucket provided by the parent stack
   S3SavesStackName:
     Type: String
 
@@ -33,46 +25,9 @@ Outputs:
     Description: CloudFormation provider root stack deployment bucket name
     Value:
       Fn::ImportValue: !Sub "${S3SavesStackName}-BucketName"
-  AuthRoleArn:
-    Value: !GetAtt
-      - AuthRole
-      - Arn
-  UnauthRoleArn:
-    Value: !GetAtt
-      - UnauthRole
-      - Arn
-  AuthRoleName:
-    Value: !Ref AuthRole
-  UnauthRoleName:
-    Value: !Ref UnauthRole
 
 Resources:
-  AuthRole:
-    Type: "AWS::IAM::Role"
-    Properties:
-      AssumeRolePolicyDocument:
-        Version: 2012-10-17
-        Statement:
-          - Sid: ""
-            Effect: Deny
-            Principal:
-              Federated: cognito-identity.amazonaws.com
-            Action: "sts:AssumeRoleWithWebIdentity"
-      RoleName: !Sub "${AWS::Region}-${AWS::StackName}-${AuthRoleName}"
-  UnauthRole:
-    Type: "AWS::IAM::Role"
-    Properties:
-      AssumeRolePolicyDocument:
-        Version: 2012-10-17
-        Statement:
-          - Sid: ""
-            Effect: Deny
-            Principal:
-              Federated: cognito-identity.amazonaws.com
-            Action: "sts:AssumeRoleWithWebIdentity"
-      RoleName: !Sub "${AWS::Region}-${AWS::StackName}-${UnauthRoleName}"
-
-  CodeBuildDeployTemplate:
+  CodeBuildChangeStack:
     Type: "AWS::CloudFormation::Stack"
     Properties:
       TemplateURL: !Sub
@@ -85,80 +40,7 @@ Resources:
         MainStackName: !Ref "AWS::StackName"
         MainStackID: !Ref "AWS::StackId"
 
-  AuthOnlineGallery:
-    Type: "AWS::CloudFormation::Stack"
-    Properties:
-      TemplateURL: !Sub
-        - "https://s3.amazonaws.com/${Bucket}/cfn-templates/auth/auth-template.yaml"
-        - Bucket:
-            Fn::ImportValue: !Sub "${S3SavesStackName}-BucketName"
-      Parameters:
-        allowUnauthenticatedIdentities: true
-        autoVerifiedAttributes: email
-        mfaConfiguration: "OFF"
-        mfaTypes: SMS Text Message
-        smsAuthenticationMessage: "Your authentication code is {####}"
-        smsVerificationMessage: "Your verification code is {####}"
-        emailVerificationSubject: Your verification code
-        emailVerificationMessage: "Your verification code is {####}"
-        defaultPasswordPolicy: false
-        passwordPolicyMinLength: 8
-        passwordPolicyCharacters: ""
-        requiredAttributes: email
-        aliasAttributes: ""
-        userpoolClientGenerateSecret: false
-        userpoolClientRefreshTokenValidity: 30
-        userpoolClientWriteAttributes: email
-        userpoolClientReadAttributes: email
-        userpoolClientLambdaRole: online_gallery_userpoolclient_lambda_role
-        userpoolClientSetAttributes: false
-        resourceName: online-gallery
-        authSelections: identityPoolAndUserPool
-        useDefault: default
-        userPoolGroupList: ""
-        serviceName: Cognito
-        usernameCaseSensitive: false
-        useEnabledMfas: true
-        authRoleArn: !GetAtt
-          - AuthRole
-          - Arn
-        unauthRoleArn: !GetAtt
-          - UnauthRole
-          - Arn
-        breakCircularDependency: true
-        dependsOn: ""
-        env: dev
-
-  StorageS3OnlineGallery:
-    Type: "AWS::CloudFormation::Stack"
-    Properties:
-      TemplateURL: !Sub
-        - "https://s3.amazonaws.com/${Bucket}/cfn-templates/storage/image-storage-template.yaml"
-        - Bucket:
-            Fn::ImportValue: !Sub "${S3SavesStackName}-BucketName"
-      Parameters:
-        s3SavesBucketName:
-          Fn::ImportValue: !Sub "${S3SavesStackName}-BucketName"
-        s3BucketName: !Sub "${AWS::StackName}-image-storage-${AWS::AccountId}"
-        selectedGuestPermissions: "s3:GetObject,s3:ListBucket"
-        selectedAuthenticatedPermissions: "s3:PutObject,s3:GetObject,s3:ListBucket,s3:DeleteObject"
-        unauthRoleName: !Ref UnauthRole
-        authRoleName: !Ref AuthRole
-        s3PrivatePolicy: Private_policy_onlineimages
-        s3ProtectedPolicy: Protected_policy_onlineimages
-        s3PublicPolicy: Public_policy_onlineimages
-        s3ReadPolicy: read_policy_onlineimages
-        s3UploadsPolicy: Uploads_policy_onlineimages
-        AuthenticatedAllowList: ALLOW
-        GuestAllowList: ALLOW
-        s3PermissionsAuthenticatedPrivate: "s3:PutObject,s3:GetObject,s3:DeleteObject"
-        s3PermissionsAuthenticatedProtected: "s3:PutObject,s3:GetObject,s3:DeleteObject"
-        s3PermissionsAuthenticatedPublic: "s3:PutObject,s3:GetObject,s3:DeleteObject"
-        s3PermissionsAuthenticatedUploads: "s3:PutObject"
-        s3PermissionsGuestPublic: "s3:GetObject,s3:PutObject"
-        s3PermissionsGuestUploads: DISALLOW
-
-  FrontStorageOnlineGallery:
+  FrontStoragePortifolio:
     Type: "AWS::CloudFormation::Stack"
     Properties:
       TemplateURL: !Sub
@@ -167,7 +49,7 @@ Resources:
             Fn::ImportValue: !Sub "${S3SavesStackName}-BucketName"
 
   # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/quickref-cloudformation.html
-  CodeBuildOnlineGallery:
+  CodeBuildPortifolio:
     Type: "AWS::CloudFormation::Stack"
     Properties:
       TemplateURL: !Sub
@@ -175,154 +57,4 @@ Resources:
         - Bucket:
             Fn::ImportValue: !Sub "${S3SavesStackName}-BucketName"
       Parameters:
-        S3BucketWebSite: !GetAtt FrontStorageOnlineGallery.Outputs.S3BucketName
-        IdentityPoolId: !GetAtt AuthOnlineGallery.Outputs.IdentityPoolId
-        CognitoRegion: !GetAtt AuthOnlineGallery.Outputs.Region
-        UserPoolId: !GetAtt AuthOnlineGallery.Outputs.UserPoolId
-        UserPoolWebClientId: !GetAtt AuthOnlineGallery.Outputs.AppClientIDWeb
-        S3StorageName: !GetAtt StorageS3OnlineGallery.Outputs.BucketName
-        S3StorageRegion: !GetAtt StorageS3OnlineGallery.Outputs.Region
-
-  CodeBuildDeployLambda:
-    Type: "AWS::CloudFormation::Stack"
-    Properties:
-      TemplateURL: !Sub
-        - "https://s3.amazonaws.com/${Bucket}/cfn-templates/build/lambdabuild-template.yaml"
-        - Bucket:
-            Fn::ImportValue: !Sub "${S3SavesStackName}-BucketName"
-      Parameters:
-        S3BucketDeploy:
-          Fn::ImportValue: !Sub "${S3SavesStackName}-BucketName"
-        S3BucketImage: !GetAtt StorageS3OnlineGallery.Outputs.BucketName
-        S3BucketImageSNSPut: !GetAtt StorageS3OnlineGallery.Outputs.S3SNSCreateObjTopicArn
-        S3BucketImageSNSDelete: !GetAtt StorageS3OnlineGallery.Outputs.S3SNSDeleteObjTopicArn
-        MainStackName: !Ref "AWS::StackName"
-        MainStackID: !Ref "AWS::StackId"
-
-  UpdateRolesWithIDPFunction:
-    DependsOn:
-      - AuthRole
-      - UnauthRole
-      - AuthOnlineGallery
-    Type: "AWS::Lambda::Function"
-    Properties:
-      Code:
-        ZipFile: !Join
-          - |+
-
-          - - const response = require('cfn-response');
-            - const aws = require('aws-sdk');
-            - "let responseData = {};"
-            - "exports.handler = function(event, context) {"
-            - "  try {"
-            - "    let authRoleName = event.ResourceProperties.authRoleName;"
-            - "    let unauthRoleName = event.ResourceProperties.unauthRoleName;"
-            - "    let idpId = event.ResourceProperties.idpId;"
-            - "    let promises = [];"
-            - "    let getPromises = [];"
-            - "    let authParamsJson = { 'Version': '2012-10-17','Statement': [{'Effect': 'Allow','Principal': {'Federated': 'cognito-identity.amazonaws.com'},'Action': 'sts:AssumeRoleWithWebIdentity','Condition': {'StringEquals': {'cognito-identity.amazonaws.com:aud': idpId},'ForAnyValue:StringLike': {'cognito-identity.amazonaws.com:amr': 'authenticated'}}}]};"
-            - "    let unauthParamsJson = { 'Version': '2012-10-17','Statement': [{'Effect': 'Allow','Principal': {'Federated': 'cognito-identity.amazonaws.com'},'Action': 'sts:AssumeRoleWithWebIdentity','Condition': {'StringEquals': {'cognito-identity.amazonaws.com:aud': idpId},'ForAnyValue:StringLike': {'cognito-identity.amazonaws.com:amr': 'unauthenticated'}}}]};"
-            - "    if (event.RequestType == 'Delete') {"
-            - "        delete authParamsJson.Statement[0].Condition;"
-            - "        delete unauthParamsJson.Statement[0].Condition;"
-            - "        let authParams = { PolicyDocument: JSON.stringify(authParamsJson),RoleName: authRoleName};"
-            - "        let unauthParams = {PolicyDocument: JSON.stringify(unauthParamsJson),RoleName: unauthRoleName};"
-            - "        const iam = new aws.IAM({ apiVersion: '2010-05-08', region: event.ResourceProperties.region});"
-            - "        getPromises.push(iam.getRole({RoleName: authParams.RoleName}).promise());"
-            - "        getPromises.push(iam.getRole({RoleName: unauthParams.RoleName}).promise());"
-            - "        Promise.all(getPromises)"
-            - "         .then((res) => {"
-            - "        console.log('in res' , res)"
-            - "           promises.push(iam.updateAssumeRolePolicy(authParams).promise());"
-            - "           promises.push(iam.updateAssumeRolePolicy(unauthParams).promise());"
-            - "           return Promise.all(promises)"
-            - "             .then((res) => {"
-            - '               console.log("delete response data" + JSON.stringify(res));'
-            - "               response.send(event, context, response.SUCCESS, {});"
-            - "             });"
-            - "          })"
-            - "           .catch((err) => {"
-            - "             console.log(err.stack);"
-            - "             responseData = {Error: err};"
-            - "             response.send(event, context, response.SUCCESS, responseData);"
-            - "             })"
-            - "    }"
-            - "    if (event.RequestType == 'Update' || event.RequestType == 'Create') {"
-            - "       const iam = new aws.IAM({ apiVersion: '2010-05-08', region: event.ResourceProperties.region});"
-            - "        let authParams = { PolicyDocument: JSON.stringify(authParamsJson),RoleName: authRoleName};"
-            - "        let unauthParams = {PolicyDocument: JSON.stringify(unauthParamsJson),RoleName: unauthRoleName};"
-            - "        promises.push(iam.updateAssumeRolePolicy(authParams).promise());"
-            - "        promises.push(iam.updateAssumeRolePolicy(unauthParams).promise());"
-            - "        Promise.all(promises)"
-            - "         .then((res) => {"
-            - '            console.log("createORupdate" + res);'
-            - '            console.log("response data" + JSON.stringify(res));'
-            - "            response.send(event, context, response.SUCCESS, {});"
-            - "         });"
-            - "    }"
-            - "  } catch(err) {"
-            - "       console.log(err.stack);"
-            - "       responseData = {Error: err};"
-            - "       response.send(event, context, response.FAILED, responseData);"
-            - "       throw err;"
-            - "  }"
-            - "};"
-      Handler: index.handler
-      Runtime: nodejs12.x
-      Timeout: 300
-      Role: !GetAtt
-        - UpdateRolesWithIDPFunctionRole
-        - Arn
-  UpdateRolesWithIDPFunctionOutputs:
-    Type: "Custom::LambdaCallout"
-    Properties:
-      ServiceToken: !GetAtt
-        - UpdateRolesWithIDPFunction
-        - Arn
-      region: !Ref "AWS::Region"
-      idpId: !GetAtt
-        - AuthOnlineGallery
-        - Outputs.IdentityPoolId
-      authRoleName: !Ref AuthRole
-      unauthRoleName: !Ref UnauthRole
-  UpdateRolesWithIDPFunctionRole:
-    Type: "AWS::IAM::Role"
-    Properties:
-      RoleName: !Join
-        - ""
-        - - !Ref AuthRole
-          - "-idp"
-      AssumeRolePolicyDocument:
-        Version: 2012-10-17
-        Statement:
-          - Effect: Allow
-            Principal:
-              Service:
-                - lambda.amazonaws.com
-            Action:
-              - "sts:AssumeRole"
-      Policies:
-        - PolicyName: UpdateRolesWithIDPFunctionPolicy
-          PolicyDocument:
-            Version: 2012-10-17
-            Statement:
-              - Effect: Allow
-                Action:
-                  - "logs:CreateLogGroup"
-                  - "logs:CreateLogStream"
-                  - "logs:PutLogEvents"
-                Resource: "arn:aws:logs:*:*:*"
-              - Effect: Allow
-                Action:
-                  - "iam:UpdateAssumeRolePolicy"
-                  - "iam:GetRole"
-                Resource: !GetAtt
-                  - AuthRole
-                  - Arn
-              - Effect: Allow
-                Action:
-                  - "iam:UpdateAssumeRolePolicy"
-                  - "iam:GetRole"
-                Resource: !GetAtt
-                  - UnauthRole
-                  - Arn
+        S3BucketWebSite: !GetAtt FrontStoragePortifolio.Outputs.S3BucketName

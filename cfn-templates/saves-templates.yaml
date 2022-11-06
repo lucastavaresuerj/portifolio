@@ -1,4 +1,4 @@
-Description: Root Stack for online gallery project
+Description: Root Stack for portifolio project
 AWSTemplateFormatVersion: 2010-09-09
 
 Resources:
@@ -18,9 +18,11 @@ Resources:
         Version: 2012-10-17
         Statement:
           - Action:
-              - "s3:GetObject"
+              - "*"
             Effect: Allow
-            Resource: !Sub "arn:aws:s3:::${SavesBucket}/*"
+            Resource:
+              - !Sub "arn:aws:s3:::${SavesBucket}"
+              - !Sub "arn:aws:s3:::${SavesBucket}/*"
             Principal: "*"
 
 Outputs:

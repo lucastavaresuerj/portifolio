@@ -7,7 +7,7 @@ Resources:
     Properties:
       WebsiteConfiguration:
         IndexDocument: index.html
-        ErrorDocument: index.html
+        ErrorDocument: server/pages/index.html # just a trick when the index is not at the root folder
     DeletionPolicy: Retain
 
   ReadPolicy:
@@ -43,7 +43,7 @@ Resources:
         CustomErrorResponses:
           - ErrorCode: 404 # not found
             ResponseCode: 200
-            ResponsePagePath: "/index.html" # should start with "/"
+            ResponsePagePath: "/server/pages/404.html" # should start with "/"
         DefaultCacheBehavior:
           AllowedMethods:
             - GET
@@ -63,7 +63,7 @@ Resources:
           MinTTL: 60 # in seconds
           TargetOriginId: s3origin
           ViewerProtocolPolicy: "redirect-to-https"
-        DefaultRootObject: "index.html"
+        DefaultRootObject: "server/pages/index.html"
         Enabled: true
         HttpVersion: http2
         Origins:
