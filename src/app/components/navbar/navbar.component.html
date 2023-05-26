@@ -1,0 +1,9 @@
+<nav>
+  <div>
+    <div *ngFor="let menu of menus" class="item">
+      <a [href]="menu.path">
+        {{ menu.name }}
+      </a>
+    </div>
+  </div>
+</nav>

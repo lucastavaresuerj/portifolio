@@ -1,0 +1,6 @@
+[
+  {
+    "ParameterKey": "S3SavesStackName",
+    "UsePreviousValue": true
+  }
+]

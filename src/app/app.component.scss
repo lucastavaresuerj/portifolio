@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+::ng-deep{
+  body {
+    background-color: #111827;
+    margin: 0;
+  }
+  * {
+    font-family: 'Roboto', sans-serif;
+  }
+} 
+
+.container {
+  width: 820px;
+}

@@ -1,0 +1,99 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Using code build to deploy an angular project into S3
+
+Parameters:
+  AcmCertificateArn:
+    Type: AWS::SSM::Parameter::Value<String>
+  Aliases:
+    Type: CommaDelimitedList
+
+Resources:
+  S3BucketWebSite:
+    Type: "AWS::S3::Bucket"
+    Properties:
+      WebsiteConfiguration:
+        IndexDocument: index.html
+        ErrorDocument: server/pages/index.html # just a trick when the index is not at the root folder
+    DeletionPolicy: Retain
+
+  ReadPolicy:
+    Type: "AWS::S3::BucketPolicy"
+    Properties:
+      Bucket: !Ref S3BucketWebSite
+      PolicyDocument:
+        Statement:
+          - Action: "s3:GetObject"
+            Effect: Allow
+            Resource: !Sub "arn:aws:s3:::${S3BucketWebSite}/*"
+            Principal:
+              CanonicalUser: !GetAtt CloudFrontOriginAccessIdentity.S3CanonicalUserId
+          - Action: "*"
+            Effect: Allow
+            Resource: !Sub "arn:aws:s3:::${S3BucketWebSite}"
+            Principal: "*"
+          - Action: "*"
+            Effect: Allow
+            Resource: !Sub "arn:aws:s3:::${S3BucketWebSite}/*"
+            Principal: "*"
+
+  CloudFrontOriginAccessIdentity:
+    Type: "AWS::CloudFront::CloudFrontOriginAccessIdentity"
+    Properties:
+      CloudFrontOriginAccessIdentityConfig:
+        Comment: !Ref S3BucketWebSite
+
+  CloudFrontDistribution:
+    Type: "AWS::CloudFront::Distribution"
+    Properties:
+      DistributionConfig:
+        Aliases: !Ref Aliases
+        CustomErrorResponses:
+          - ErrorCode: 404 # not found
+            ResponseCode: 200
+            ResponsePagePath: "/server/pages/404.html" # should start with "/"
+        DefaultCacheBehavior:
+          AllowedMethods:
+            - GET
+            - HEAD
+            - OPTIONS
+          CachedMethods:
+            - GET
+            - HEAD
+            - OPTIONS
+          Compress: true
+          DefaultTTL: 3600 # in seconds
+          ForwardedValues:
+            Cookies:
+              Forward: none
+            QueryString: false
+          MaxTTL: 86400 # in seconds
+          MinTTL: 60 # in seconds
+          TargetOriginId: s3origin
+          ViewerProtocolPolicy: "redirect-to-https"
+        DefaultRootObject: "server/pages/index.html"
+        Enabled: true
+        HttpVersion: http2
+        Origins:
+          - DomainName: !GetAtt "S3BucketWebSite.DomainName"
+            Id: s3origin
+            S3OriginConfig:
+              OriginAccessIdentity: !Sub "origin-access-identity/cloudfront/${CloudFrontOriginAccessIdentity}"
+        PriceClass: "PriceClass_All"
+        ViewerCertificate:
+          AcmCertificateArn: !Ref AcmCertificateArn
+          MinimumProtocolVersion: TLSv1.2_2021
+          SslSupportMethod: sni-only
+
+Outputs:
+  WebsiteURL:
+    Value: !GetAtt S3BucketWebSite.WebsiteURL
+    Description: URL for website hosted on S3
+  S3BucketName:
+    Value: !Ref S3BucketWebSite
+    Description: Name of bucket to be exported
+  DistributionId:
+    Description: "CloudFront Distribution ID"
+    Value: !Ref CloudFrontDistribution
+  Domain:
+    Description: "Cloudfront Domain"
+    Value: !GetAtt CloudFrontDistribution.DomainName

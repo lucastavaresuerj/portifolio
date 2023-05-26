@@ -1,0 +1,63 @@
+Description: Root Stack for portifolio project
+AWSTemplateFormatVersion: 2010-09-09
+
+Parameters:
+  S3SavesStackName:
+    Type: String
+
+Outputs:
+  Region:
+    Description: CloudFormation provider root stack Region
+    Value: !Ref "AWS::Region"
+    Export:
+      Name: !Sub "${AWS::StackName}-Region"
+  StackName:
+    Description: CloudFormation provider root stack ID
+    Value: !Ref "AWS::StackName"
+    Export:
+      Name: !Sub "${AWS::StackName}-StackName"
+  StackId:
+    Description: CloudFormation provider root stack name
+    Value: !Ref "AWS::StackId"
+    Export:
+      Name: !Sub "${AWS::StackName}-StackId"
+  DeploymentBucketName:
+    Description: CloudFormation provider root stack deployment bucket name
+    Value:
+      Fn::ImportValue: !Sub "${S3SavesStackName}-BucketName"
+
+Resources:
+  CodeBuildChangeStack:
+    Type: "AWS::CloudFormation::Stack"
+    Properties:
+      TemplateURL: !Sub
+        - "https://s3.amazonaws.com/${Bucket}/cfn-templates/build/templatebuild-template.yaml"
+        - Bucket:
+            Fn::ImportValue: !Sub "${S3SavesStackName}-BucketName"
+      Parameters:
+        S3BucketDeploy:
+          Fn::ImportValue: !Sub "${S3SavesStackName}-BucketName"
+        MainStackName: !Ref "AWS::StackName"
+        MainStackID: !Ref "AWS::StackId"
+
+  FrontStoragePortifolio:
+    Type: "AWS::CloudFormation::Stack"
+    Properties:
+      TemplateURL: !Sub
+        - "https://s3.amazonaws.com/${Bucket}/cfn-templates/front/front-storage-template.yaml"
+        - Bucket:
+            Fn::ImportValue: !Sub "${S3SavesStackName}-BucketName"
+      Parameters:
+        AcmCertificateArn: /portifolio/domain/AcmCertificateArn
+        Aliases: www.lucas-tavares.com
+
+  # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/quickref-cloudformation.html
+  CodeBuildPortifolio:
+    Type: "AWS::CloudFormation::Stack"
+    Properties:
+      TemplateURL: !Sub
+        - "https://s3.amazonaws.com/${Bucket}/cfn-templates/build/codebuild-template.yaml"
+        - Bucket:
+            Fn::ImportValue: !Sub "${S3SavesStackName}-BucketName"
+      Parameters:
+        S3BucketWebSite: !GetAtt FrontStoragePortifolio.Outputs.S3BucketName
