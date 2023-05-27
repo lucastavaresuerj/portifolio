@@ -1,0 +1,10 @@
+<div class="wrapper">
+  <div class="content" *ngFor="let card of cards">
+    <div class="image">
+      <img [src]="card.image" alt="" />
+    </div>
+    <div class="title">
+      <p>{{ card.title }}</p>
+    </div>
+  </div>
+</div>

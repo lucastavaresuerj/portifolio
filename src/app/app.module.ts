@@ -7,11 +7,10 @@ import { PopupComponent } from './components/popup/popup.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ContainerComponent } from './components/container/container.component';
 import { SectionComponent } from './components/section/section.component';
-import { ProjectCardComponent } from './components/project/project-card/project-card.component';
-import { WorkCardComponent } from './components/work/work-card/work-card.component';
-import { WorksComponent } from './components/work/works/works.component';
-import { ProjectsComponent } from './components/project/projects/projects.component';
+
 import { SkillComponent } from './components/skill/skill.component';
+
+import { CardsComponent } from './components/cards/cards.component';
 
 @NgModule({
   declarations: [
@@ -20,11 +19,8 @@ import { SkillComponent } from './components/skill/skill.component';
     NavbarComponent,
     ContainerComponent,
     SectionComponent,
-    ProjectCardComponent,
-    WorkCardComponent,
-    WorksComponent,
-    ProjectsComponent,
     SkillComponent,
+    CardsComponent,
   ],
   imports: [BrowserModule, AppRoutingModule],
   providers: [],

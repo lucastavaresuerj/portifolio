@@ -12,8 +12,12 @@
     </div>
   </div>
 
-  <app-section name="Works"> </app-section>
-  <app-section name="Projects"> </app-section>
+  <app-section name="Works">
+    <app-cards [cards]="works"></app-cards>
+  </app-section>
+  <app-section name="Projects">
+    <app-cards [cards]="projects"></app-cards>
+  </app-section>
   <app-section name="Skills">
     <app-skill></app-skill>
   </app-section>
