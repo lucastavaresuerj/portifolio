@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: 2010-09-09
-Description: Using code build to deploy an Next.js project into S3
+Description: Using code build to deploy an Angular project into S3
 Parameters:
   S3BucketWebSite:
     Type: String

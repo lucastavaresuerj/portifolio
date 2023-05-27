@@ -1,14 +1,21 @@
 <app-navbar></app-navbar>
 
 <app-container>
-  <section class="section1">
-    <div class="presentation">
-      <div class="info">
-        <h2><span></span> Hi, I'm</h2>
-        <h1>Lucas</h1>
-        <h2>&lt;&gt;FullStack Developer&lt;/&gt;</h2>
-      </div>
-      <div class="image"></div>
+  <div class="presentation">
+    <div class="info">
+      <h2><i class="icon hi"></i> Hi, I'm</h2>
+      <h1 class="my-name">Lucas</h1>
+      <h2 class="dev">&lt;&gt;FullStack Developer&lt;/&gt;</h2>
     </div>
-  </section>
+    <div class="image">
+      <img src="../assets/presentation/coding.png" alt="" />
+    </div>
+  </div>
+
+  <app-section name="Works"> </app-section>
+  <app-section name="Projects"> </app-section>
+  <app-section name="Skills">
+    <app-skill></app-skill>
+  </app-section>
+  <app-section name="Contact"> </app-section>
 </app-container>
