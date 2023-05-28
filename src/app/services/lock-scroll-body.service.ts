@@ -5,9 +5,6 @@ import { Injectable } from '@angular/core';
 })
 export class LockScrollBodyService {
   changeStatus() {
-    const body = document.getElementsByTagName(
-      'body'
-    )[0] as unknown as HTMLBodyElement;
-    body.classList.toggle('lock-scroll');
+    document.body.classList.toggle('lock-scroll');
   }
 }

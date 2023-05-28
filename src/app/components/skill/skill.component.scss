@@ -32,42 +32,17 @@
 
 @media (max-width: 480px) {
   .skill-container {
-    width: 95%;
     overflow-x: scroll;
     height: 300px;
-    margin-left: 5%;
+    margin-left: 10px;
   }
 
   .skills {
     justify-content: left;
-    width: 303%; // TODO: is not the ideal but... works
+    width: 1000px;
   }
 
   .skill-content {
     width: 185px;
-  }
-}
-
-@media (max-width: 414px) {
-  .skills {
-    width: 259%; // TODO: is not the ideal but... works
-  }
-}
-
-@media (max-width: 375px) {
-  .skills {
-    width: 284%; // TODO: is not the ideal but... works
-  }
-}
-
-@media (max-width: 360px) {
-  .skills {
-    width: 294%; // TODO: is not the ideal but... works
-  }
-}
-
-@media (max-width: 280px) {
-  .skills {
-    width: 354%; // TODO: is not the ideal but... works
   }
 }

@@ -23,7 +23,7 @@ export class SkillComponent {
     { name: 'React', icon: 'react-original' },
     { name: 'NodeJs', icon: 'nodejs-plain' },
     { name: 'BitBucket', icon: 'bitbucket-original' },
-    { name: 'Linux', icon: 'linux-plain' },
+    { name: 'Linux', icon: 'linux-plain', isColored: false },
     { name: 'MySQL', icon: 'mysql-plain', isColored: false },
     { name: 'PostgreSQL', icon: 'postgresql-plain', isColored: false },
     { name: 'Python', icon: 'python-plain' },

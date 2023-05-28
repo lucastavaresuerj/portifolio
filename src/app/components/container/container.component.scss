@@ -6,3 +6,9 @@
 .inner-container {
   width: 820px;
 }
+
+@media (max-width: 480px) {
+  .inner-container {
+    width: 96vw;
+  }
+}
