@@ -1,3 +1,28 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import url("https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css"); /* Using a url */
+
+.lock-scroll {
+  overflow-y: hidden;
+}
+
+.icon {
+  &.menu {
+    top: -6px;
+    &::before {
+      content: url("./assets/icons/icons8-menu.svg");
+    }
+  }
+}
+
+.icon {
+  &.close::before {
+    content: url("./assets/icons/icons8-close.svg");
+  }
+}
+
+.icon {
+  &.hi::before {
+    content: url("./assets/presentation/emoji-hi.svg");
+  }
+}

@@ -2,17 +2,16 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  width: 100%
+  width: 100%;
 }
 
-.skill-content{
+.skill-content {
   display: flex;
 
   width: 180px;
   height: 60px;
   margin: 5px;
 
-  
   border: 2px solid #293548;
   border-radius: 10px;
 
@@ -31,7 +30,7 @@
   }
 }
 
-@media (max-width:480px) {
+@media (max-width: 480px) {
   .skill-container {
     width: 95%;
     overflow-x: scroll;
@@ -49,20 +48,25 @@
   }
 }
 
-
-@media (max-width:414px) {
+@media (max-width: 414px) {
   .skills {
     width: 259%; // TODO: is not the ideal but... works
   }
 }
 
-@media (max-width:375px) {
+@media (max-width: 375px) {
   .skills {
     width: 284%; // TODO: is not the ideal but... works
   }
 }
 
-@media (max-width:280px) {
+@media (max-width: 360px) {
+  .skills {
+    width: 294%; // TODO: is not the ideal but... works
+  }
+}
+
+@media (max-width: 280px) {
   .skills {
     width: 354%; // TODO: is not the ideal but... works
   }

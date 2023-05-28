@@ -1,23 +1,26 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@use "../styles.scss";
 
-::ng-deep{
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
+::ng-deep {
   body {
     background-color: #111827;
     margin: 0;
   }
   * {
-    font-family: 'Roboto', sans-serif;
-    color: #FFFFFF;
+    font-family: "Roboto", sans-serif;
+    color: #ffffff;
     font-weight: 100;
   }
-} 
+}
 
 .presentation {
   display: flex;
   .info {
     width: 50%;
     text-align: center;
-    h2, h1 {
+    h2,
+    h1 {
       margin: 0;
     }
     h2 {
@@ -27,22 +30,16 @@
       font-size: 70px;
     }
     .dev {
-      color: #2CB67D;
+      color: #2cb67d;
     }
   }
 }
 
-.icon {
-  &.hi::before {
-    content: url('../assets/presentation/emoji-hi.svg');
-  }
-}
-
-@media (max-width:480px) {
+@media (max-width: 480px) {
   .presentation {
     flex-direction: column;
     align-items: center;
-    &>div {
+    & > div {
       margin-bottom: 30px;
     }
   }

@@ -1,12 +1,14 @@
-nav {
-  background: linear-gradient(#00000061, rgba(0,0,0,0));
+@use "../../../styles.scss";
 
-  &>div {
+nav {
+  background: linear-gradient(#00000061, rgba(0, 0, 0, 0));
+
+  & > div {
     display: flex;
     flex-direction: row;
     justify-content: right;
-   }
-  
+  }
+
   .item {
     margin: 15px 25px 15px 0;
     a {
@@ -18,3 +20,37 @@ nav {
   margin-bottom: 30px;
 }
 
+.mobile {
+  display: none !important;
+}
+
+@media (max-width: 480px) {
+  .desktop {
+    display: none !important;
+  }
+  .mobile {
+    display: block !important;
+
+    i {
+      position: absolute;
+      left: 0;
+      margin: 10px;
+    }
+  }
+
+  .menu-items {
+    background-color: #293548;
+    width: 100%;
+
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    &.hidden {
+      display: none;
+    }
+  }
+}

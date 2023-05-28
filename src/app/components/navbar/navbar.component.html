@@ -1,9 +1,22 @@
 <nav>
-  <div>
-    <div *ngFor="let menu of menus" class="item">
-      <a [href]="menu.path">
-        {{ menu.name }}
-      </a>
+  <div class="desktop">
+    <ng-container *ngTemplateOutlet="itemsMenu"> </ng-container>
+  </div>
+  <div class="mobile">
+    <i
+      [ngClass]="openStatus ? 'icon close' : 'icon menu'"
+      (click)="changeStatus()"
+    ></i>
+    <div class="menu-items" [ngClass]="{ hidden: !openStatus }">
+      <ng-container *ngTemplateOutlet="itemsMenu"> </ng-container>
     </div>
   </div>
 </nav>
+
+<ng-template #itemsMenu>
+  <div *ngFor="let menu of menus" class="item">
+    <a [href]="menu.path">
+      {{ menu.name }}
+    </a>
+  </div>
+</ng-template>
