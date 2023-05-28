@@ -13,7 +13,7 @@ nav {
     margin: 15px 25px 15px 0;
     a {
       text-decoration: none;
-      font-size: 20px;
+      font-size: 50px;
     }
   }
 
@@ -25,16 +25,35 @@ nav {
 }
 
 @media (max-width: 480px) {
+  nav {
+    &.open {
+      margin-bottom: 0;
+    }
+
+    .item {
+      margin: 15px 0;
+    }
+  }
+
   .desktop {
     display: none !important;
   }
   .mobile {
     display: block !important;
+    position: fixed;
+    width: 100vw;
+    z-index: 1;
 
     i {
       position: absolute;
       left: 0;
       margin: 10px;
+      &.close {
+        margin-top: 40px;
+      }
+      &::before {
+        filter: drop-shadow(3px 5px 2px rgb(0 0 0 / 0.4));
+      }
     }
   }
 

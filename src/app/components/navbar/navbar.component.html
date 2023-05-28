@@ -1,6 +1,9 @@
-<nav>
+<nav [ngClass]="{ open: openStatus }">
   <div class="desktop">
-    <ng-container *ngTemplateOutlet="itemsMenu"> </ng-container>
+    <ng-container
+      *ngTemplateOutlet="itemsMenu; context: { $implicit: 'desktop' }"
+    >
+    </ng-container>
   </div>
   <div class="mobile">
     <i
@@ -8,14 +11,17 @@
       (click)="changeStatus()"
     ></i>
     <div class="menu-items" [ngClass]="{ hidden: !openStatus }">
-      <ng-container *ngTemplateOutlet="itemsMenu"> </ng-container>
+      <ng-container
+        *ngTemplateOutlet="itemsMenu; context: { $implicit: 'mobile' }"
+      >
+      </ng-container>
     </div>
   </div>
 </nav>
 
-<ng-template #itemsMenu>
+<ng-template #itemsMenu let-view>
   <div *ngFor="let menu of menus" class="item">
-    <a [href]="menu.path">
+    <a [href]="menu.path" (click)="view === 'mobile' ? changeStatus() : null">
       {{ menu.name }}
     </a>
   </div>

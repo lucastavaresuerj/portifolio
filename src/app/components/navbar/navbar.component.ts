@@ -10,11 +10,11 @@ export class NavbarComponent {
   openStatus = false;
 
   readonly menus: { name: string; path: string }[] = [
-    { name: 'Home', path: '' },
-    { name: 'Projects', path: '' },
-    { name: 'Skils', path: '' },
-    { name: 'Works', path: '' },
-    { name: 'Contact', path: '' },
+    { name: 'Home', path: '#' },
+    { name: 'Projects', path: '#projects' },
+    { name: 'Skills', path: '#skills' },
+    { name: 'Works', path: '#works' },
+    { name: 'Contact', path: '#contact' },
   ];
 
   constructor(private lockScrollBodyService: LockScrollBodyService) {}

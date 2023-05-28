@@ -6,7 +6,7 @@
 .content {
   display: flex;
   flex-direction: column;
-  
+
   width: 400px;
   padding: 5px;
   height: 250px;
@@ -16,23 +16,14 @@
   height: 200px;
   width: 100%;
 
-  .image-content {
-    height: 100%;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position-x: center;
-  }
-
   img {
     display: block;
     margin-left: auto;
     margin-right: auto;
     max-height: 100%;
     border-radius: 20px 20px 0 0;
-    width: inherit;
   }
 }
-
 
 .title {
   height: 50px;
@@ -46,12 +37,9 @@
   }
 }
 
-@media (max-width:480px) {
+@media (max-width: 480px) {
   .content {
     padding: 5%;
     width: 90%;
-
   }
-
-
 }
