@@ -1,0 +1,13 @@
+<div class="modal" *ngIf="isOpen">
+  <div class="container">
+    <div class="content">
+      <i class="icon close" (click)="close()"></i>
+      <div class="image"></div>
+      <div class="title"></div>
+      <div class="discription"></div>
+      <div class="buttons">
+        <div class="button" *ngFor="let button of buttons"></div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { ModalService } from 'src/app/services/modal.service';
 
 export type Card = {
   title: string;
@@ -16,4 +17,10 @@ export type Card = {
 })
 export class CardsComponent {
   @Input() cards!: Card[];
+
+  constructor(private modalService: ModalService) {}
+
+  openModal(card: (typeof this.cards)[number]) {
+    this.modalService.open(card);
+  }
 }

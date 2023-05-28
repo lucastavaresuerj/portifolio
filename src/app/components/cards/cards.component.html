@@ -1,5 +1,5 @@
 <div class="cards">
-  <div class="card" *ngFor="let card of cards">
+  <div class="card" *ngFor="let card of cards" (click)="openModal(card)">
     <div
       class="image"
       [style]="{ 'background-image': 'url(' + card.image + ')' }"

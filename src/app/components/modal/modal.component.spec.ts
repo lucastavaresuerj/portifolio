@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PopupComponent } from './popup.component';
+import { ModalComponent } from './modal.component';
 
-describe('PopupComponent', () => {
-  let component: PopupComponent;
-  let fixture: ComponentFixture<PopupComponent>;
+describe('ModalComponent', () => {
+  let component: ModalComponent;
+  let fixture: ComponentFixture<ModalComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [PopupComponent]
+      declarations: [ModalComponent]
     });
-    fixture = TestBed.createComponent(PopupComponent);
+    fixture = TestBed.createComponent(ModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
