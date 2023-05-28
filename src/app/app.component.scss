@@ -38,3 +38,12 @@
   }
 }
 
+@media (max-width:480px) {
+  .presentation {
+    flex-direction: column;
+    align-items: center;
+    &>div {
+      margin-bottom: 30px;
+    }
+  }
+}

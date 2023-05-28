@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-skill',
@@ -6,6 +6,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./skill.component.scss'],
 })
 export class SkillComponent {
+  @ViewChild('container') container!: ElementRef<HTMLInputElement>;
+
   readonly skills: { name: string; icon: string; isColored?: false }[] = [
     { name: 'AWS', icon: 'amazonwebservices-plain-wordmark' },
     { name: 'Angular', icon: 'angularjs-plain' },

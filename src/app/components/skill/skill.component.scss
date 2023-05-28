@@ -1,6 +1,8 @@
 .skills {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
+  width: 100%
 }
 
 .skill-content{
@@ -26,5 +28,23 @@
       position: relative;
       top: -7px;
     }
+  }
+}
+
+@media (max-width:480px) {
+  .skill-container {
+    width: 95%;
+    overflow-x: scroll;
+    height: 300px;
+    margin-left: 5%;
+  }
+
+  .skills {
+    justify-content: left;
+    width: 303%; // TODO: is not the ideal but... works
+  }
+
+  .skill-content {
+    width: 185px;
   }
 }
