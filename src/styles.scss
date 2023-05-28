@@ -2,6 +2,16 @@
 
 @import url("https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css"); /* Using a url */
 
+body {
+  background-color: #111827;
+  margin: 0;
+}
+* {
+  font-family: "Roboto", sans-serif;
+  color: #ffffff;
+  font-weight: 100;
+}
+
 .lock-scroll {
   overflow-y: hidden;
 }
@@ -13,16 +23,24 @@
       content: url("./assets/icons/icons8-menu.svg");
     }
   }
-}
 
-.icon {
   &.close::before {
     content: url("./assets/icons/icons8-close.svg");
   }
-}
 
-.icon {
   &.hi::before {
     content: url("./assets/presentation/emoji-hi.svg");
+  }
+
+  &.linkedin::before {
+    content: url("./assets/icons/fas-linkedin.svg");
+  }
+
+  &.github::before {
+    content: url("./assets/icons/fas-github.svg");
+  }
+
+  &.email::before {
+    content: url("./assets/icons/fas-email.svg");
   }
 }

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Card } from './components/cards/cards.component';
+import { Contact } from './components/contact/contact.component';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +13,7 @@ export class AppComponent {
   works: Card[] = [
     {
       title: 'Tokenlab',
-      image: '../../assets/work/mask-tokenlab-icon.png',
+      image: '../../assets/work/mask-tokenlab-icon-scaled.png',
       description:
         "Where I internship as fullstack developer. It's a brazilian company that build software on demand",
       site: 'https://www.tokenlab.com.br/pt/home',
@@ -22,7 +23,7 @@ export class AppComponent {
   projects: Card[] = [
     {
       title: 'Portifolio',
-      image: '../../assets/project/portifolio.png',
+      image: '../../assets/project/portifolio-scaled.png',
       description:
         "This portifolio. It's build with angular and hosted with aws",
       repo: 'https://github.com/lucastavaresuerj/portifolio',
@@ -40,5 +41,22 @@ export class AppComponent {
     //   description: 'App that saves images',
     //   repo: 'https://github.com/lucastavaresuerj/calendario-eventos/tree/master',
     // },
+  ];
+
+  contact: Contact[] = [
+    {
+      type: 'link',
+      icon: 'linkedin',
+      info: 'https://www.linkedin.com/in/lucas-tavares-08581920a/',
+    },
+    {
+      type: 'link',
+      icon: 'github',
+      info: 'https://github.com/lucastavaresuerj',
+    },
+    {
+      icon: 'email',
+      info: 'lucas.spo.tavares@gmail.com',
+    },
   ];
 }

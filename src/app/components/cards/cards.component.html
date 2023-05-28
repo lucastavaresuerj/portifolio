@@ -1,7 +1,10 @@
-<div class="wrapper">
-  <div class="content" *ngFor="let card of cards">
-    <div class="image">
-      <img [src]="card.image" alt="" />
+<div class="cards">
+  <div class="card" *ngFor="let card of cards">
+    <div
+      class="image"
+      [style]="{ 'background-image': 'url(' + card.image + ')' }"
+    >
+      <!-- <img [src]="card.image" alt="" /> -->
     </div>
     <div class="title">
       <p>{{ card.title }}</p>

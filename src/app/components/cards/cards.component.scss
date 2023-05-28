@@ -1,9 +1,9 @@
-.wrapper {
+.cards {
   display: flex;
   flex-wrap: wrap;
 }
 
-.content {
+.card {
   display: flex;
   flex-direction: column;
 
@@ -15,14 +15,10 @@
 .image {
   height: 200px;
   width: 100%;
-
-  img {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    max-height: 100%;
-    border-radius: 20px 20px 0 0;
-  }
+  border-radius: 20px 20px 0 0;
+  background-repeat: no-repeat;
+  background-position-x: center;
+  background-position-y: center;
 }
 
 .title {
@@ -38,7 +34,7 @@
 }
 
 @media (max-width: 480px) {
-  .content {
+  .card {
     padding: 5%;
     width: 90%;
   }

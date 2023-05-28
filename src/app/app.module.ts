@@ -11,6 +11,7 @@ import { SectionComponent } from './components/section/section.component';
 import { SkillComponent } from './components/skill/skill.component';
 
 import { CardsComponent } from './components/cards/cards.component';
+import { ContactComponent } from './components/contact/contact.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { CardsComponent } from './components/cards/cards.component';
     SectionComponent,
     SkillComponent,
     CardsComponent,
+    ContactComponent,
   ],
   imports: [BrowserModule, AppRoutingModule],
   providers: [],
