@@ -1,1 +1,12 @@
-<p>contact works!</p>
+<div class="contacts">
+  <div class="contact" *ngFor="let contact of contacts">
+    <div class="icon">
+      <a
+        [target]="contact.type === 'link' ? '_blank' : null"
+        [href]="getHref(contact)"
+        ><i [ngClass]="['icon', contact.icon]"></i
+      ></a>
+    </div>
+  </div>
+</div>
+<p class="my-email">lucas.spo.tavares@gmail.com</p>

@@ -55,6 +55,7 @@ export class AppComponent {
       info: 'https://github.com/lucastavaresuerj',
     },
     {
+      type: 'email',
       icon: 'email',
       info: 'lucas.spo.tavares@gmail.com',
     },

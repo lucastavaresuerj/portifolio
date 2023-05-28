@@ -1,0 +1,24 @@
+.contacts {
+  display: flex;
+  justify-content: space-evenly;
+
+  .contact {
+    background-color: #161b22;
+    border-radius: 50% 50%;
+
+    width: 50px;
+    height: 50px;
+    div.icon {
+      width: 25px;
+      display: block;
+      margin: auto;
+      top: 12px;
+      position: relative;
+    }
+  }
+}
+
+.my-email {
+  text-align: center;
+  font-size: 20px;
+}

@@ -21,6 +21,13 @@
   }
 }
 
+@media (min-width: 480px) {
+  .contact {
+    display: block;
+    margin-bottom: 60px;
+  }
+}
+
 @media (max-width: 480px) {
   .presentation {
     flex-direction: column;
