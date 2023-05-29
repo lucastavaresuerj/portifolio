@@ -1,6 +1,6 @@
-<div class="modal" *ngIf="isOpen">
+<div class="modal" *ngIf="isOpen" (click)="close()">
   <div class="container">
-    <div class="content">
+    <div class="content" (click)="preventClose($event)">
       <i class="icon close" (click)="close()"></i>
       <div class="image"></div>
       <div class="title"></div>

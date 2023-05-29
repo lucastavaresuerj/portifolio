@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { Card } from './components/cards/cards.component';
 import { Contact } from './components/contact/contact.component';
+import { ModalService } from './services/modal.service';
 
 @Component({
   selector: 'app-root',
@@ -8,6 +9,8 @@ import { Contact } from './components/contact/contact.component';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
+  constructor(private modalService: ModalService) {}
+
   title = 'new-portifolio';
 
   works: Card[] = [

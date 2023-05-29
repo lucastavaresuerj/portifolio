@@ -1,29 +1,53 @@
-import { EventEmitter, Injectable } from '@angular/core';
+import {
+  ComponentRef,
+  EventEmitter,
+  Injectable,
+  Type,
+  ViewContainerRef,
+} from '@angular/core';
 import { Card } from '../components/cards/cards.component';
+import { Modal } from './modal.abstract';
+import { CardModalComponent } from '../components/card-modal/card-modal.component';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ModalService {
-  private _card!: Card;
-  private _status: EventEmitter<'open' | 'close'> = new EventEmitter();
+  private _viewRef!: ViewContainerRef;
+  private _componentRef!: ComponentRef<Modal>;
+  private _data!: Card | any;
 
-  constructor() {}
-
-  get card() {
-    return this._card;
+  get data() {
+    return { ...this._data } as const;
   }
 
-  get staus() {
-    return this._status.asObservable();
+  get status() {
+    return this._componentRef.instance.status;
   }
 
-  open(card: Card) {
-    this._card = card;
-    this._status.emit('open');
+  set data(data: Card) {
+    this._componentRef.setInput('data', data ?? this._data);
+  }
+
+  createModal(modal: Type<Modal> = CardModalComponent) {
+    this._componentRef = this._viewRef.createComponent(modal);
+  }
+
+  deleteModal() {
+    this.close();
+    this._componentRef.destroy();
+  }
+
+  setViewRef(viewRef: ViewContainerRef) {
+    if (this._viewRef) throw new Error('ViewContainerRef already exists');
+    this._viewRef = viewRef;
+  }
+
+  open() {
+    this._componentRef.instance.open();
   }
 
   close() {
-    this._status.emit('close');
+    this._componentRef.instance.close();
   }
 }
