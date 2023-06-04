@@ -20,22 +20,17 @@ export type Card = {
   selector: 'app-cards',
   templateUrl: './cards.component.html',
   styleUrls: ['./cards.component.scss'],
-  providers: [ModalService],
 })
 export class CardsComponent implements OnInit, OnDestroy {
   @Input() cards!: Card[];
 
-  constructor(
-    private viewContainerRef: ViewContainerRef,
-    private modalService: ModalService
-  ) {}
+  constructor(private modalService: ModalService) {}
 
   ngOnDestroy(): void {
     this.modalService.deleteModal();
   }
 
   ngOnInit(): void {
-    this.modalService.setViewRef(this.viewContainerRef);
     this.modalService.createModal();
   }
 

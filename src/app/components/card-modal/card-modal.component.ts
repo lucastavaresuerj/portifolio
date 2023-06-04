@@ -3,12 +3,10 @@ import {
   EventEmitter,
   Input,
   OnChanges,
-  OnDestroy,
   SimpleChanges,
 } from '@angular/core';
 import { Card } from '../cards/cards.component';
-import { ModalService } from 'src/app/services/modal.service';
-import { Modal } from '../../services/modal.abstract';
+import { Modal } from '../../services/modal.interface';
 
 @Component({
   selector: 'app-card-modal',
@@ -19,8 +17,6 @@ export class CardModalComponent implements Modal, OnChanges {
   @Input() data!: Card;
   @Input() isOpen = false;
   private _status: EventEmitter<'open' | 'close'> = new EventEmitter();
-
-  constructor(private modalService: ModalService) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['isOpen']) {

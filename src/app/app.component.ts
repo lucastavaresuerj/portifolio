@@ -8,8 +8,15 @@ import { ModalService } from './services/modal.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
-  constructor(private modalService: ModalService) {}
+export class AppComponent implements OnInit {
+  constructor(
+    private viewContainerRef: ViewContainerRef,
+    private modalService: ModalService
+  ) {}
+
+  ngOnInit(): void {
+    this.modalService.setViewRef(this.viewContainerRef);
+  }
 
   title = 'new-portifolio';
 
