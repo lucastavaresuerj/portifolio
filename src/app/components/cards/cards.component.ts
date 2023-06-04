@@ -35,6 +35,7 @@ export class CardsComponent implements OnInit, OnDestroy {
   }
 
   openModal(card: (typeof this.cards)[number]) {
+    return;
     this.modalService.data = card;
     this.modalService.open();
   }
