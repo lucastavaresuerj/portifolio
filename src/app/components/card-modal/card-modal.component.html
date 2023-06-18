@@ -2,11 +2,19 @@
   <div class="container">
     <div class="content" (click)="preventClose($event)">
       <i class="icon close" (click)="close()"></i>
-      <div class="image"></div>
-      <div class="title"></div>
-      <div class="discription"></div>
+      <div
+        class="image"
+        [style]="{ 'background-image': 'url(' + data.image + ')' }"
+      ></div>
+      <h2 class="title">{{ data.title }}</h2>
+      <p class="discription">{{ data.description }}</p>
       <div class="buttons">
-        <div class="button" *ngFor="let button of buttons"></div>
+        <a
+          class="button icon"
+          [href]="button.value"
+          target="_blank"
+          *ngFor="let button of buttons"
+        ></a>
       </div>
     </div>
   </div>

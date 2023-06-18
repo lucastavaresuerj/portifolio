@@ -23,7 +23,7 @@ export class AppComponent implements OnInit {
   works: Card[] = [
     {
       title: 'Tokenlab',
-      image: '../../assets/work/mask-tokenlab-icon-scaled.png',
+      image: './assets/work/mask-tokenlab-icon-scaled.png',
       description:
         "Where I internship as fullstack developer. It's a brazilian company that build software on demand",
       site: 'https://www.tokenlab.com.br/pt/home',
@@ -33,7 +33,7 @@ export class AppComponent implements OnInit {
   projects: Card[] = [
     {
       title: 'Portifolio',
-      image: '../../assets/project/portifolio-scaled.png',
+      image: './assets/project/portifolio-scaled.png',
       description:
         "This portifolio. It's build with angular and hosted with aws",
       repo: 'https://github.com/lucastavaresuerj/portifolio',
