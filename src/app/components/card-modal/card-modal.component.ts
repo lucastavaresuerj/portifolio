@@ -30,12 +30,12 @@ export class CardModalComponent implements Modal, OnChanges {
 
   get buttons() {
     const keys: (keyof Card)[] = ['repo', 'demo', 'site'];
-    const btns = Object.entries(this.data)
-      ?.filter(([key]) => keys.includes(key as keyof Card))
-      .reduce(
-        (acc, [key, value]) => [...acc, { linkType: key, value }],
-        [] as { linkType: string; value: string }[]
-      );
+    const btns = Object.entries(this.data).reduce((acc, [key, value]) => {
+      if (typeof value == 'string' && keys.includes(key as keyof Card)) {
+        return [...acc, { linkType: key, value: value as string }];
+      }
+      return acc;
+    }, [] as { linkType: string; value: string }[]);
     return btns;
   }
 

@@ -11,9 +11,10 @@ export class NavbarComponent {
 
   readonly menus: { name: string; path: string }[] = [
     { name: 'Home', path: '#' },
-    { name: 'Projects', path: '#projects' },
-    { name: 'Skills', path: '#skills' },
     { name: 'Works', path: '#works' },
+    { name: 'Projects', path: '#projects' },
+    { name: 'Certificates', path: '#certificate' },
+    { name: 'Skills', path: '#skills' },
     { name: 'Contact', path: '#contact' },
   ];
 

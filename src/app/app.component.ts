@@ -27,6 +27,7 @@ export class AppComponent implements OnInit {
       description:
         "Where I internship as fullstack developer. It's a brazilian company that build software on demand",
       site: 'https://www.tokenlab.com.br/pt/home',
+      fit: true,
     },
   ];
 
@@ -51,6 +52,16 @@ export class AppComponent implements OnInit {
     //   description: 'App that saves images',
     //   repo: 'https://github.com/lucastavaresuerj/calendario-eventos/tree/master',
     // },
+  ];
+
+  certificates: Card[] = [
+    {
+      title: 'AWS Certified Cloud Practitioner',
+      image: './assets/certificates/aws-certified-cloud-practitioner.png',
+      description:
+        'Earners of this certification have a fundamental understanding of IT services and their uses in the AWS Cloud. They demonstrated cloud fluency and foundational AWS knowledge. Badge owners are able to identify essential AWS services necessary to set up AWS-focused projects.',
+      fit: true,
+    },
   ];
 
   contact: Contact[] = [

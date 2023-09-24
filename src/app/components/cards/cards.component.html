@@ -2,6 +2,7 @@
   <div class="card" *ngFor="let card of cards" (click)="openModal(card)">
     <div
       class="image"
+      [ngClass]="{ fit: card.fit ?? false }"
       [style]="{ 'background-image': 'url(' + card.image + ')' }"
     ></div>
     <div class="title">

@@ -4,6 +4,7 @@
       <i class="icon close" (click)="close()"></i>
       <div
         class="image"
+        [ngClass]="{ fit: data.fit ?? false }"
         [style]="{ 'background-image': 'url(' + data.image + ')' }"
       ></div>
       <h2 class="title">{{ data.title }}</h2>

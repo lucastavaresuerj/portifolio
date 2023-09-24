@@ -1,10 +1,4 @@
-import {
-  Component,
-  Input,
-  OnDestroy,
-  OnInit,
-  ViewContainerRef,
-} from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ModalService } from 'src/app/services/modal.service';
 
 export type Card = {
@@ -14,6 +8,7 @@ export type Card = {
   repo?: string;
   demo?: string;
   site?: string;
+  fit?: boolean;
 };
 
 @Component({
