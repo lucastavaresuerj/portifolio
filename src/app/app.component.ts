@@ -61,6 +61,7 @@ export class AppComponent implements OnInit {
       description:
         'Earners of this certification have a fundamental understanding of IT services and their uses in the AWS Cloud. They demonstrated cloud fluency and foundational AWS knowledge. Badge owners are able to identify essential AWS services necessary to set up AWS-focused projects.',
       fit: true,
+      site: 'https://www.credly.com/earner/earned/badge/133ee89f-3ddb-4972-ab47-3abb559f8ef2',
     },
   ];
 

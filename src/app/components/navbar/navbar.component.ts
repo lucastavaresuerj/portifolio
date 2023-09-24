@@ -13,7 +13,7 @@ export class NavbarComponent {
     { name: 'Home', path: '#' },
     { name: 'Works', path: '#works' },
     { name: 'Projects', path: '#projects' },
-    { name: 'Certificates', path: '#certificate' },
+    { name: 'Certificates', path: '#certificates' },
     { name: 'Skills', path: '#skills' },
     { name: 'Contact', path: '#contact' },
   ];
